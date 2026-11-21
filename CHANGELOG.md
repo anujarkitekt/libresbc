@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 i.e. `<Major version>.<Minor version>.<Patch version>`
 
+## [v1.0.1] - 2026-04-11
+- fix(python): requests==2.33.1 for security
+- fix(liberator): add str type for routes after transforming
+- refactor(liberator): best-practice final return
+
+## [v1.0.0] - 2026-01-11
+- handle direction concurent calls
+- fix verify concurent calls
+- end of life cluster candidate attributes
+- support centralized liberator
+- python lib broken upgrading (code rework)
+- introduce shield: separately control nftables with api/pubsub
+- remove access layer function
+- docker way as default
+- upgrade latest software along with trixie
+- fix(ngcall): pcall register rdb
+- feat(deployment): enhancing libre docker service
+
 ## [v0.8.0] - 2024-09-14
 - Support Debian 12 (bookworm)
 

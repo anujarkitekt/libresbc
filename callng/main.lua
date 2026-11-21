@@ -28,6 +28,11 @@ local function main()
         local context = InLeg:getVariable("context")
         local sipprofile = InLeg:getVariable("sofia_profile_name")
         local network_ip = InLeg:getVariable("sip_network_ip")
+        local call_id = InLeg:getVariable("sip_call_id")
+        NgVars.callid = call_id
+        NgVars.uuid = uuid
+        NgVars.context = context
+        NgVars.sipprofile = sipprofile
         NgVars.realm = InLeg:getVariable("domain_name")
         NgVars.intconname = InLeg:getVariable("user_name")
         NgVars.hostto = InLeg:getVariable("sip_to_host")
@@ -35,7 +40,6 @@ local function main()
         NgVars.hostrq = InLeg:getVariable("sip_request_host")
         NgVars.hostct = InLeg:getVariable("sip_contact_host")
         NgVars.hostvi = InLeg:getVariable("sip_via_host")
-        local call_id = InLeg:getVariable("sip_call_id")
         local transport = InLeg:getVariable("sip_via_protocol")
         local caller_name = InLeg:getVariable("caller_id_name")
         local caller_number = InLeg:getVariable("caller_id_number")

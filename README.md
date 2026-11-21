@@ -1,6 +1,9 @@
-<a href="https://github.com/hnimminh/libresbc" target="_blank">
-  <p align="center"> <img width="200px" src="https://user-images.githubusercontent.com/58973699/126869145-9c15755b-426b-40dd-a478-56b28c98f6e9.png" alt=""> </p>
-</a>
+
+<p align="center"> 
+  <a href="https://github.com/hnimminh/libresbc" target="_blank">
+     <img width="200px" src="https://user-images.githubusercontent.com/58973699/126869145-9c15755b-426b-40dd-a478-56b28c98f6e9.png" alt="">
+  </a>
+</p>
 
 <p align="center">
   <a href="https://github.com/hnimminh/libresbc/stargazers" target="_blank">
@@ -16,8 +19,8 @@
     <img src="https://badgen.net/badge/license/MIT/ffd700" alt="">
   </a>
   <a href="#" target="_blank">
-    <img src="https://img.shields.io/badge/clone-22/week-00afd7?style=plastic&logo=GitHubActions">
-    <img src="https://img.shields.io/badge/view-1415/week-d70000?style=plastic&logo=monkeytie">
+    <img src="https://img.shields.io/badge/clone-26/week-00afd7?style=plastic&logo=GitHubActions">
+    <img src="https://img.shields.io/badge/view-1547/week-d70000?style=plastic&logo=monkeytie">
   </a>
 </p>
 
@@ -37,7 +40,22 @@ If you want to contribute time to LibreSBC then here's a list of suggestions to 
 2. Help people in the [issues](https://github.com/hnimminh/libresbc/issues) by sharing your knowledge and experience.
 3. Find and report issues.
 4. Influence the future of LibreSBC with feature requests.
-5. You can also contribute money to help secure LibreSBC's future
+
+
+**You can also contribute money to help secure LibreSBC's future.**
+
+<p align="center">
+  <a href="https://www.paypal.com/paypalme/hnimminh" target="_blank">
+    <img src="https://user-images.githubusercontent.com/58973699/130890970-ad7f3be3-42c4-4a21-8e28-27dda9c603e3.png" height="54" alt="Paypal">
+  </a>
+</p>
+<br>
+<p align="center"> 
+  <br><strong>Bitcoin Wallet</strong>
+  <br>1MNjpx5Jy9KUxx2gt5qVmExruehgPi3dQX
+</p>
+
+<br>
 
 ## Sponsors
 
@@ -107,7 +125,7 @@ If you want to contribute time to LibreSBC then here's a list of suggestions to 
 
 
 ## Architecture
-![image](https://user-images.githubusercontent.com/58973699/121683376-7c80bd00-cae7-11eb-8161-c03022f9bf6d.png)
+![Image](https://github.com/user-attachments/assets/8e2a9488-9827-4861-9cf3-ce7724d7898f)
 
 ## Functions
 SBCs commonly maintain full session state and offer the following functions:
@@ -166,14 +184,10 @@ Support to intergrate with 3rd-party system or customer function easily
 ## Documents
 Please go to [Wiki](https://github.com/hnimminh/libresbc/wiki)
 
-## Roadmap
-[Development & Roadmap](https://github.com/hnimminh/libresbc/projects/1)
 
 ## Discussions
 * Let development [Discuss](https://github.com/hnimminh/libresbc/discussions)
 
-## Community
-* LibreSBC has an initial community on the [slack](https://librertc.slack.com/)
 
 ## Who use LibreSBC
 On my awareness, here is the list of them

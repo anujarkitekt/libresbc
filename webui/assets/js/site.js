@@ -324,9 +324,11 @@ function GetPresentNode(){
         success: function (data) {
             ShowProgress();
             let CandidateHtml = EMPTYSTR;
-            data.candidates.forEach((element) => {
-                CandidateHtml = `${CandidateHtml}<span class="badge bg-secondary rounded-pill" id="cdr-bucket">${element}</span>`;
-            });
+            if (Array.isArray(data.candidates)) {
+                data.candidates.forEach((element) => {
+                    CandidateHtml = `${CandidateHtml}<span class="badge bg-secondary rounded-pill" id="cdr-bucket">${element}</span>`;
+                });
+            }
             document.getElementById('node-info').innerHTML = `
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 Software Version <span class="badge bg-success rounded-pill">${data.swversion}</span>
@@ -339,9 +341,8 @@ function GetPresentNode(){
                 <div>${CandidateHtml}</div></li>`;
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
             document.getElementById('node-info').innerHTML = EMPTYSTR;
-            ShowToast(jqXHR.responseJSON.error);
+            ShowAPIError(jqXHR, textStatus, errorThrown);
         }
     });
 
@@ -351,9 +352,11 @@ function GetPresentNode(){
         success: function (data) {
             ShowProgress();
             let MembersHtml = EMPTYSTR;
-            data.members.forEach((element) => {
-                MembersHtml = `${MembersHtml}<span class="badge bg-dark rounded-pill" id="cdr-bucket">${element}</span>`;
-            });
+            if (Array.isArray(data.members)) {
+                data.members.forEach((element) => {
+                    MembersHtml = `${MembersHtml}<span class="badge bg-dark rounded-pill" id="cdr-bucket">${element}</span>`;
+                });
+            }
             document.getElementById('cluster-info').innerHTML = `
             <li class="list-group-item d-flex justify-content-between align-items-center">
             Cluster Name <span class="badge bg-warning text-dark rounded-pill">${data.name}</span>
@@ -378,9 +381,8 @@ function GetPresentNode(){
             </div>`;
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
             document.getElementById('cluster-info').innerHTML = EMPTYSTR;
-            ShowToast(jqXHR.responseJSON.error);
+            ShowAPIError(jqXHR, textStatus, errorThrown);
         }
     });
 }
@@ -404,14 +406,14 @@ function GeneralGetPresent(SettingName){
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
             document.getElementById(presentation).innerHTML = EMPTYSTR;
-            ShowToast(jqXHR.responseJSON.error);
+            ShowAPIError(jqXHR, textStatus, errorThrown);
         }
     });
 }
 
 function GeneralPresentData(DataList, SettingName, presentation){
+    if (!Array.isArray(DataList)) return;
     let tablebody = EMPTYSTR;
     let cnt = 1;
     DataList.forEach((element) => {
@@ -458,8 +460,7 @@ function GeneralRemove(name, SettingName){
             GeneralGetPresent(SettingName);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            ShowToast(jqXHR.responseJSON.error);
+            ShowAPIError(jqXHR, textStatus, errorThrown);
         }
     });
 }
@@ -485,8 +486,7 @@ function GeneralModify(name, SettingName){
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            ShowToast(jqXHR.responseJSON.error);
+            ShowAPIError(jqXHR, textStatus, errorThrown);
         }
     });
 }
@@ -530,8 +530,7 @@ function GeneralSubmit(name, SettingName, method="POST"){
             offcanvaspanel.hide();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            ShowToast(jqXHR.responseJSON.error);
+            ShowAPIError(jqXHR, textStatus, errorThrown);
         }
     });
 }
@@ -552,6 +551,7 @@ function GeneralCreate(SettingName, ObjectName=EMPTYSTR){
 
 // Access domain policy+user presentation
 function AccessDomainPresentData(data, presentation){
+    if (!Array.isArray(data)) return;
     let AccessDomainHtml = EMPTYSTR;
     let cnt = 0;
     data.forEach((Adomain) => {
@@ -618,9 +618,8 @@ function AccessDomainPolicyDetail(Adomain){
             </div>`;
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
             document.getElementById(`DetailAD${Adomain}`).innerHTML = EMPTYSTR;
-            ShowToast(jqXHR.responseJSON.error);
+            ShowAPIError(jqXHR, textStatus, errorThrown);
         }
     });
 }
@@ -669,9 +668,8 @@ function AccessUserDirectoryDetail(Adomain){
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
             document.getElementById(`TableAD${Adomain}`).innerHTML = EMPTYSTR;
-            ShowToast(jqXHR.responseJSON.error);
+            ShowAPIError(jqXHR, textStatus, errorThrown);
         }
     });
 }
@@ -689,8 +687,7 @@ function RemoveAccessUser(domain, user){
             AccessUserDirectoryDetail(domain);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            ShowToast(jqXHR.responseJSON.error);
+            ShowAPIError(jqXHR, textStatus, errorThrown);
         }
     });
 }
@@ -714,8 +711,7 @@ function UpdateAccessUser(domain, user){
             PresentCanvas(userdata, domain, SettingName, 'PATCH');
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            ShowToast(jqXHR.responseJSON.error);
+            ShowAPIError(jqXHR, textStatus, errorThrown);
         }
     });
 }
@@ -724,6 +720,7 @@ function UpdateAccessUser(domain, user){
 // --   Routing                                     //
 // -------------------------------------------------//
 function RoutingTablePresentData(data, presentation){
+    if (!Array.isArray(data)) return;
     let RoutingTablesHtml = EMPTYSTR;
     data.forEach((Rtable) => {
         let rtbName = Rtable.name;
@@ -773,7 +770,7 @@ function RoutingTableDetail(Rtablename){
         url: `/libreapi/routing/table/${Rtablename}`,
         success: function (data) {
             ShowProgress();
-            records = data.records;
+            records = Array.isArray(data.records) ? data.records : [];
             delete data['records'];
             document.getElementById(`DetailRT${Rtablename}`).innerHTML = `
             <div class="card border-primary">
@@ -829,9 +826,8 @@ function RoutingTableDetail(Rtablename){
             };
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
             document.getElementById("DetailRT"+Rtablename).innerHTML = EMPTYSTR;
-            ShowToast(jqXHR.responseJSON.error);
+            ShowAPIError(jqXHR, textStatus, errorThrown);
         }
     });
 }
@@ -848,8 +844,7 @@ function RemoveRoutingRecord(tablename, match, value){
             RoutingTableDetail(tablename);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            ShowToast(jqXHR.responseJSON.error);
+            ShowAPIError(jqXHR, textStatus, errorThrown);
         }
     });
 }
@@ -940,6 +935,132 @@ function ShowToast(message, msgtype='danger'){
         ToastMsgEMLS.classList.remove('bg-warning');
         ToastMsgEMLS.classList.remove('bg-success');
     }
+    
+    // Toast duration scales with message type
+    let delay = 3500; // default 3.5s
+    if (msgtype === 'warning') {
+        delay = 8000; // 8s for validation errors
+    } else if (msgtype === 'danger') {
+        delay = 6000; // 6s for critical errors
+    }
+
+    ToastMsgEMLS.setAttribute('data-bs-delay', delay);
+    
     document.getElementById('event-message').innerHTML = message;
     $('.toast').toast('show');
+}
+
+// --------------------------------------------------
+// CDR
+// --------------------------------------------------
+
+(function() {
+    var input = document.getElementById('cdr-date-input');
+    if (input) {
+        var today = new Date().toISOString().slice(0, 10);
+        input.value = today;
+        input.max = today;
+    }
+})();
+
+function loadCDR() {
+    var input = document.getElementById('cdr-date-input');
+    var date = input ? input.value : new Date().toISOString().slice(0, 10);
+    $.ajax({
+        type: 'GET',
+        url: '/libreapi/cdr/records?date=' + encodeURIComponent(date) + '&limit=500',
+        success: function(data) {
+            var tbody = document.getElementById('cdr-table-body');
+            var count = document.getElementById('cdr-count');
+            if (!Array.isArray(data) || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted">No records</td></tr>';
+                if (count) count.textContent = '';
+                return;
+            }
+            if (count) count.textContent = data.length + ' sessions';
+            var rows = data.map(function(r) {
+                var ts = r.start_time ? new Date(parseInt(r.start_time) * 1000) : null;
+                var timeStr = ts ? ts.toLocaleTimeString() : '-';
+                var dur = parseInt(r.duration) || 0;
+                var durStr = Math.floor(dur / 60) + ':' + String(dur % 60).padStart(2, '0');
+                var answered = r.answer_time && r.answer_time !== '0';
+                var route = (r.from_intcon || '?') + ' → ' + (r.to_intcon || '?');
+                var hangup = r.hangup_cause || '-';
+                var hangupClass = hangup === 'NORMAL_CLEARING' ? 'text-muted' : 'text-danger fw-bold';
+                var libreHangup = r.libre_hangup_cause || '';
+                return '<tr>' +
+                    '<td>' + LSBC.escapeAttr(timeStr) + '</td>' +
+                    '<td>' + LSBC.escapeAttr(r.caller_number || '-') + '</td>' +
+                    '<td>' + LSBC.escapeAttr(r.destination_number || '-') + '</td>' +
+                    '<td class="text-nowrap small">' + LSBC.escapeAttr(route) + '</td>' +
+                    '<td>' + (answered ? durStr : '<span class="text-warning">no answer</span>') + '</td>' +
+                    '<td class="' + hangupClass + '">' + LSBC.escapeAttr(hangup) + '</td>' +
+                    '<td class="text-muted small">' + LSBC.escapeAttr(libreHangup) + '</td>' +
+                    '</tr>';
+            });
+            tbody.innerHTML = rows.join('');
+        },
+        error: function(jqXHR) { LSBC.ajaxError(jqXHR); }
+    });
+}
+
+// Parses common API error shapes and renders them as a structured toast
+function ShowAPIError(jqXHR, textStatus, errorThrown) {
+    console.log(jqXHR);
+
+    let errorMessage = '';
+    let msgType = 'danger';
+
+    if (jqXHR.responseJSON) {
+        const error = jqXHR.responseJSON;
+
+        if (error.detail && Array.isArray(error.detail)) {
+            // Pydantic validation error
+            msgType = 'warning';
+            errorMessage = '<strong>🚨 Validation Errors:</strong><br>';
+
+            error.detail.forEach((err, index) => {
+                let fieldName = err.loc && err.loc.length > 1 ? err.loc[1] : 'Field';
+                let errorMsg = err.msg || 'Validation error';
+                let inputValue = err.input ? ` (Value: <code>${err.input}</code>)` : '';
+                let expectedValues = err.ctx && err.ctx.expected ? `<br><small>💡 Allowed values: ${err.ctx.expected}</small>` : '';
+
+                errorMessage += `• <strong>${fieldName}:</strong> ${errorMsg}${inputValue}${expectedValues}<br>`;
+            });
+
+            errorMessage += '<br><small>💡 Check the values entered and make sure they match the required format.</small>';
+        } else if (error.error) {
+            errorMessage = `<strong>❌ Error:</strong> ${error.error}`;
+        } else if (error.message) {
+            errorMessage = `<strong>❌ Error:</strong> ${error.message}`;
+        } else {
+            errorMessage = '❌ An unexpected error occurred';
+        }
+
+        if (jqXHR.status) {
+            let statusText = '';
+            switch(jqXHR.status) {
+                case 400: statusText = 'Bad Request'; break;
+                case 401: statusText = 'Unauthorized'; break;
+                case 403: statusText = 'Forbidden'; break;
+                case 404: statusText = 'Not Found'; break;
+                case 422: statusText = 'Unprocessable Entity'; break;
+                case 500: statusText = 'Server Error'; break;
+                default: statusText = 'Error';
+            }
+            errorMessage += `<br><small>📊 Status: ${jqXHR.status} (${statusText})</small>`;
+        }
+    } else {
+        // Connection error
+        msgType = 'danger';
+        errorMessage = `🌐 Connection error: ${textStatus}`;
+
+        if (textStatus === 'timeout') {
+            errorMessage = '⏰ Request timed out. Check your network connection.';
+        } else if (textStatus === 'error') {
+            errorMessage = '🔌 Connection error. Verify the server is reachable.';
+        }
+    }
+
+    ShowToast(errorMessage, msgType);
 }
